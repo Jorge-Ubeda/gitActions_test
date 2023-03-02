@@ -1,7 +1,9 @@
 name: Event_details
 on:
+  on:
   workflow_dispatch:
   issues:
+    types: [opened]
 jobs:
   show_details: 
     runs-on: ubuntu-latest
