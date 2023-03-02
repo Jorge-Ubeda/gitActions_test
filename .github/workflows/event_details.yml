@@ -1,7 +1,7 @@
-name: Event_details
+name: Event details
 on: issues
 jobs:
-  show_details: 
+  show-details: 
     runs-on: ubuntu-latest
     steps:
       - name: Show event dSetails
