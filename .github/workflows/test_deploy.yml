@@ -1,4 +1,4 @@
-name: test
+name: test_deploy
 on: push
 jobs:
   test:
@@ -10,3 +10,13 @@ jobs:
         run: npm ci       # Este comando es similar a npm install, sólo que para un entorno de CI/CD. Toma las versión especificadas en package-lock.json
       - name: Run tests
         run: npm test
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Build project
+        run: |
+          echo "Building project ..." 
+          npm run build && echo "Project built!"
+      - name: Deploy
+        run: echo "Project deployed!!"
