@@ -1,0 +1,12 @@
+name: test
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci       # Este comando es similar a npm install, sólo que para un entorno de CI/CD. Toma las versión especificadas en package-lock.json
+      - name: Run tests
+        run: npm test
