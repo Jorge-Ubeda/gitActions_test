@@ -22,7 +22,7 @@ jobs:
         run: npm ci
       - name: Build project
         run: |
-          echo "BUILDING PROJECT ... \n" 
+          echo "BUILDING PROJECT ..." 
           npm run build && echo "PROJECT BUILT!"
       - name: Deploy
         run: echo "PROJECT DEPLOYED!!"
