@@ -1,8 +1,0 @@
-name: Event details
-on: issues
-jobs:
-  show-details: 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Show event dSetails
-        run: echo "${{ toJSON(github.event) }}"
