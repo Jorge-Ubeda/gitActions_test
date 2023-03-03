@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependencies # Si las dependencias ya existen y no han cambiado, el paso de Install dependencies no las reinstalará de nuevo, pero si hay algún cambio, el hash cambiará y se recrearán. Este step se ejecuta no sólo cuando le toca sino también al final del job.
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci       # Este comando es similar a npm install, sólo que para un entorno de CI/CD. Toma las versión especificadas en package-lock.json
       - name: Run tests
@@ -24,6 +29,11 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependencies
+      - name: Cache dependencies # Aquí no se está utilizando una caché nueva. Es la misma que en el job anterior.
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
         run: npm ci
       - name: Build project
         run: |
