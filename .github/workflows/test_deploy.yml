@@ -22,7 +22,8 @@ jobs:
         id: run-tests
         run: npm test
       - name: Upload test report
-        if: steps.run-tests.outcome == 'failure'
+        # Como queremos generar el test-report (se declara en vite.config.js) sólo si hay tests fallidos hay que añadir la siguiente condición.
+        if: failure() && steps.run-tests.outcome == 'failure' # failure() devuelve true si hay algún fallo en algún step. Sin embargo, steps.run-tests.outcome sólo será 'failure' si hay fallo en los tests.
         uses: actions/upload-artifact@v3
         with:
           name: test-report
