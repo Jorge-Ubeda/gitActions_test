@@ -7,6 +7,9 @@ jobs:
       matrix:
         node-version: [12, 14, 16]
         operating-system: [ubuntu-latest, windows-latest]   # Es como hacer una mesh de parámetros que se ejecutarán en paralelo en runners separados.
+        include:
+          - node-version: 18
+            operating-system: ubuntu-latest
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Get Code
