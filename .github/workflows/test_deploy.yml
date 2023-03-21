@@ -10,11 +10,14 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Cache dependencies # Si las dependencias ya existen y no han cambiado, el paso de Install dependencies no las reinstalará de nuevo, pero si hay algún cambio, el hash cambiará y se recrearán. Este step se ejecuta no sólo cuando le toca sino también al final del job.
+        id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+#          path: ~/.npm
+          path:  node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'  #cache-hit es una salida que genera la acción actions/cache@v3 que es true si se ha utilizado la cache.
         run: npm ci       # Este comando es similar a npm install, sólo que para un entorno de CI/CD. Toma las versión especificadas en package-lock.json
       - name: Run lint
         run: npm run lint
@@ -36,13 +39,16 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Cache dependencies # Aquí no se está utilizando una caché nueva. Es la misma que en el job anterior.
+      - name: Cache dependencies # Si las dependencias ya existen y no han cambiado, el paso de Install dependencies no las reinstalará de nuevo, pero si hay algún cambio, el hash cambiará y se recrearán. Este step se ejecuta no sólo cuando le toca sino también al final del job.
+        id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+#          path: ~/.npm
+          path:  node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
-        run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'  #cache-hit es una salida que genera la acción actions/cache@v3 que es true si se ha utilizado la cache.
+        run: npm ci       # Este comando es similar a npm install, sólo que para un entorno de CI/CD. Toma las versión especificadas en package-lock.json
       - name: Build project
         run: |
           echo "BUILDING PROJECT ..." 
