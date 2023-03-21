@@ -7,10 +7,10 @@ jobs:
       matrix:
         node-version: [12, 14, 16]
         operating-system: [ubuntu-latest, windows-latest]   # Es como hacer una mesh de parámetros que se ejecutarán en paralelo en runners separados.
-        include:
+        include:                                          # Permite incluir un caso concreto diferente a cualquier configuración de la mesh.
           - node-version: 18
             operating-system: ubuntu-latest
-        exclude:
+        exclude:                                          # Permite excluir un caso de la mesh
           - node-version: 12
             operating-system: windows-latest
     runs-on: ${{ matrix.operating-system }}
