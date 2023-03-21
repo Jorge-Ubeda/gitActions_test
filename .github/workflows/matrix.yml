@@ -7,9 +7,6 @@ jobs:
       matrix:
         node-version: [12, 14, 16]
         operating-system: [ubuntu-latest, windows-latest]   # Es como hacer una mesh de parámetros que se ejecutarán en paralelo en runners separados.
-        include:                                            # Include permite añadir un caso más a ese mesh pero sin iterar sobre variables innecesariamente. En este caso sólo queremos añadir un runner con ubuntu y NodeJS 18.
-          - node-version: 18    
-            operating_system: ubuntu-latest
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Get Code
