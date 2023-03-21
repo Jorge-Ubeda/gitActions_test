@@ -1,8 +1,5 @@
 name: Using Reusable Workflow
-on: 
-  push:
-    branches:
-      - '*'
+on: push
 #  push:
 #    paths-ignore:
 #      - '.github/workflows/*'
